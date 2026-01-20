@@ -1,0 +1,586 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Дьявол Бабник — Официальный Мем-Портал</title>
+  <meta name="description" content="Шуточный сайт в красной теме: познакомиться, признать себя бабником и вступить в ассоциацию." />
+
+  <meta property="og:title" content="Дьявол Бабник" />
+  <meta property="og:description" content="Кнопки, анкета и красный вайб. Мем-лендинг." />
+  <meta property="og:type" content="website" />
+
+  <style>
+    :root{
+      --bg:#070005;
+      --panel: rgba(255,255,255,.06);
+      --line: rgba(255,255,255,.12);
+      --txt: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.68);
+      --red:#ff2b3a;
+      --red2:#ff005d;
+      --hot:#ff6a00;
+      --shadow: 0 20px 70px rgba(0,0,0,.65);
+      --radius: 22px;
+    }
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", sans-serif;
+      color: var(--txt);
+      background:
+        radial-gradient(900px 600px at 25% 10%, rgba(255,43,58,.22), transparent 60%),
+        radial-gradient(900px 650px at 85% 25%, rgba(255,0,93,.18), transparent 55%),
+        radial-gradient(900px 700px at 55% 95%, rgba(255,106,0,.10), transparent 55%),
+        linear-gradient(180deg, #070005 0%, #040008 55%, #020003 100%);
+      overflow-x:hidden;
+    }
+    a{ color:inherit; text-decoration:none; }
+    .wrap{ max-width:1100px; margin:0 auto; padding:24px; }
+
+    .nav{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(12px);
+      background: linear-gradient(180deg, rgba(7,0,5,.75), rgba(7,0,5,.35));
+      border-bottom:1px solid var(--line);
+    }
+    .nav-inner{
+      display:flex; align-items:center; justify-content:space-between;
+      max-width:1100px; margin:0 auto; padding:12px 24px; gap:12px;
+    }
+    .brand{ display:flex; align-items:center; gap:12px; }
+    .logo{
+      width:40px; height:40px; border-radius:14px;
+      background:
+        radial-gradient(14px 14px at 30% 30%, rgba(255,255,255,.55), transparent 55%),
+        linear-gradient(135deg, rgba(255,43,58,.95), rgba(255,0,93,.92));
+      border: 1px solid rgba(255,255,255,.18);
+      box-shadow: 0 12px 34px rgba(255,43,58,.18);
+      position:relative;
+      overflow:hidden;
+    }
+    .logo::after{
+      content:"";
+      position:absolute; inset:-30%;
+      background: radial-gradient(circle at 40% 40%, rgba(255,255,255,.25), transparent 60%);
+      transform: rotate(25deg);
+      opacity:.9;
+    }
+    .brand h1{ font-size:16px; margin:0; letter-spacing:.35px;}
+    .brand p{ margin:0; font-size:12px; color:var(--muted); }
+
+    .links{ display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end; }
+    .chip{
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      transition:.18s ease;
+      font-size:13px;
+      color: rgba(255,255,255,.82);
+    }
+    .chip:hover{ transform: translateY(-1px); border-color: rgba(255,255,255,.18); background: rgba(255,255,255,.06); }
+
+    .card{
+      background: rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.10);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+    .card::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(650px 240px at 25% 15%, rgba(255,43,58,.22), transparent 60%),
+        radial-gradient(500px 240px at 85% 0%, rgba(255,0,93,.20), transparent 55%);
+      opacity:.75;
+      pointer-events:none;
+    }
+    .card > *{ position:relative; }
+
+    .hero{ padding:54px 0 18px; }
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:18px;
+      align-items:stretch;
+    }
+    @media (max-width: 900px){ .hero-grid{ grid-template-columns: 1fr; } }
+
+    .hero-main{ padding:28px; }
+    .badge{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.04);
+      color: rgba(255,255,255,.86);
+      font-size:13px;
+      width: fit-content;
+      margin-bottom:14px;
+    }
+    .pulse{
+      width:8px; height:8px; border-radius:50%;
+      background: linear-gradient(180deg, var(--red), var(--red2));
+      box-shadow: 0 0 18px rgba(255,43,58,.45);
+      animation: beat 1.2s infinite ease-in-out;
+    }
+    @keyframes beat{
+      0%,100%{ transform: scale(1); opacity:.9; }
+      50%{ transform: scale(1.55); opacity:1; }
+    }
+
+    .hero-title{
+      margin:0 0 10px;
+      font-size:46px; line-height:1.05;
+      letter-spacing:-.7px;
+    }
+    .hero-sub{
+      margin:0 0 20px;
+      color: var(--muted);
+      font-size:16px;
+      max-width: 62ch;
+      line-height:1.5;
+    }
+
+    .actions{ display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.04);
+      color: rgba(255,255,255,.92);
+      transition:.18s ease;
+      font-weight:800;
+      font-size:14px;
+      cursor:pointer;
+    }
+    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.22); }
+    .btn.primary{
+      border-color: rgba(255,43,58,.55);
+      background: linear-gradient(135deg, rgba(255,43,58,.24), rgba(255,0,93,.16));
+    }
+    .btn.primary:hover{ border-color: rgba(255,43,58,.85); }
+
+    .mini{
+      margin-top:18px;
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+      padding:14px;
+      border-radius: 16px;
+      border:1px dashed rgba(255,255,255,.22);
+      background: rgba(0,0,0,.22);
+    }
+    .tag{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size:13px;
+      padding:8px 10px;
+      border-radius: 12px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.03);
+    }
+
+    .hero-side{ padding:20px; }
+    .mini-title{ margin:0 0 10px; font-size:14px; color: rgba(255,255,255,.84); }
+    .stats{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
+    }
+    .stat{
+      padding:14px;
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.03);
+    }
+    .stat b{ display:block; font-size:18px; }
+    .stat span{ display:block; margin-top:4px; color: var(--muted); font-size:12px; }
+
+    .section{ padding:18px 0; }
+    .section h2{ margin:18px 0 10px; font-size:20px; letter-spacing:-.2px; }
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:12px;
+    }
+    @media (max-width: 950px){ .grid{ grid-template-columns: 1fr; } }
+
+    .tile{
+      padding:18px;
+      border-radius: 22px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      transition:.18s ease;
+    }
+    .tile:hover{ transform: translateY(-1px); background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.16); }
+    .tile h3{ margin:0 0 6px; font-size:16px; }
+    .tile p{ margin:0; color: var(--muted); font-size:13px; line-height:1.45; }
+
+    /* Модалка */
+    .modal-bg{
+      position:fixed; inset:0;
+      background: rgba(0,0,0,.65);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+      z-index:200;
+    }
+    .modal-bg.show{ display:flex; }
+    .modal{
+      width:min(720px, 100%);
+      border-radius: 22px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(18,0,8,.92);
+      box-shadow: 0 24px 90px rgba(0,0,0,.75);
+      overflow:hidden;
+      position:relative;
+    }
+    .modal::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(600px 280px at 20% 0%, rgba(255,43,58,.24), transparent 60%),
+        radial-gradient(520px 260px at 90% 10%, rgba(255,0,93,.20), transparent 55%);
+      opacity:.9;
+      pointer-events:none;
+    }
+    .modal > *{ position:relative; }
+    .modal-header{
+      padding:16px 18px;
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+    }
+    .modal-title{ margin:0; font-size:15px; letter-spacing:.2px; }
+    .x{
+      border:none; background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.14);
+      color: rgba(255,255,255,.9);
+      width:38px; height:38px;
+      border-radius: 12px;
+      cursor:pointer;
+      font-weight:900;
+      transition:.18s ease;
+    }
+    .x:hover{ transform: translateY(-1px); background: rgba(255,255,255,.08); }
+
+    .modal-body{ padding:16px 18px 18px; }
+    .row{ display:grid; grid-template-columns: 1fr 1fr; gap:12px; }
+    @media (max-width: 720px){ .row{ grid-template-columns: 1fr; } }
+
+    label{ display:block; font-size:12px; color: var(--muted); margin:0 0 6px; }
+    input, textarea, select{
+      width:100%;
+      padding:12px 12px;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.04);
+      color: rgba(255,255,255,.92);
+      outline:none;
+      font-size:14px;
+    }
+    textarea{ min-height: 98px; resize: vertical; }
+
+    .modal-actions{
+      margin-top:12px;
+      display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end;
+    }
+
+    .toast{
+      position:fixed; left:50%; bottom:18px; transform: translateX(-50%);
+      background: rgba(15,0,8,.86);
+      border:1px solid rgba(255,255,255,.14);
+      color: rgba(255,255,255,.9);
+      padding:10px 12px;
+      border-radius: 999px;
+      font-size:13px;
+      opacity:0;
+      pointer-events:none;
+      transition:.2s ease;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 18px 50px rgba(0,0,0,.45);
+    }
+    .toast.show{ opacity:1; }
+
+    footer{
+      margin-top:26px;
+      padding:22px 0 30px;
+      color: rgba(255,255,255,.55);
+      font-size:12px;
+      border-top:1px solid rgba(255,255,255,.08);
+    }
+    .footer-row{
+      display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;
+    }
+    .small-links{ display:flex; gap:12px; flex-wrap:wrap; }
+    .small-links a{ color: rgba(255,255,255,.72); }
+    .small-links a:hover{ color: rgba(255,255,255,.92); }
+
+    .warn{
+      margin-top:10px;
+      color: rgba(255,255,255,.68);
+      font-size:12px;
+      line-height:1.45;
+    }
+    .warn b{ color: rgba(255,255,255,.9); }
+  </style>
+</head>
+
+<body>
+  <div class="nav">
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h1>Дьявол Бабник</h1>
+          <p>красный вайб • мем-ассоциация • кнопки судьбы</p>
+        </div>
+      </div>
+
+      <div class="links">
+        <a class="chip" href="#manifest">Манифест</a>
+        <a class="chip" href="#actions">Действия</a>
+        <a class="chip" href="#faq">FAQ</a>
+      </div>
+    </div>
+  </div>
+
+  <main class="wrap">
+    <section class="hero">
+      <div class="hero-grid">
+        <div class="card hero-main">
+          <div class="badge"><span class="pulse"></span> Добро пожаловать в красную зону харизмы</div>
+
+          <h2 class="hero-title">Дьявол Бабник<br/>— легенда в режиме онлайн.</h2>
+          <p class="hero-sub">
+            Это шуточный мем-портал. Тут можно: <b>познакомиться</b>, <b>признать себя бабником</b>
+            и торжественно вступить в <b>ассоциацию</b> (без токсика и без жести, только рофл).
+          </p>
+
+          <div class="actions" id="actions">
+            <button class="btn primary" id="btnMeet" type="button">Познакомиться с девушкой</button>
+            <button class="btn" id="btnConfess" type="button">Признать себя бабником</button>
+            <button class="btn" id="btnJoin" type="button">Вступить в ассоциацию</button>
+          </div>
+
+          <div class="mini">
+            <span class="tag" id="tagMood">mood: red</span>
+            <span class="tag" id="tagLevel">харизма: 7/10</span>
+            <span class="tag" id="tagStatus">статус: на стиле</span>
+          </div>
+
+          <p class="warn">
+            <b>Важно:</b> сайт — мем. Никакого преследования, унижения или “охоты”.
+            Только уважение и норм общение.
+          </p>
+        </div>
+
+        <div class="card hero-side">
+          <h3 class="mini-title">Статистика ассоциации</h3>
+          <div class="stats">
+            <div class="stat">
+              <b id="s1">∞</b><span>уверенности</span>
+            </div>
+            <div class="stat">
+              <b id="s2">0%</b><span>токсичности</span>
+            </div>
+            <div class="stat">
+              <b id="s3">100%</b><span>красного вайба</span>
+            </div>
+            <div class="stat">
+              <b id="s4">ON</b><span>уважение</span>
+            </div>
+          </div>
+
+          <div style="height:12px"></div>
+
+          <div class="tile" style="padding:16px">
+            <h3 style="margin:0 0 6px">Правило №1</h3>
+            <p style="margin:0;color:var(--muted);font-size:13px;line-height:1.5">
+              Если общаешься — общайся нормально. Никакого давления.
+              Харизма — это вежливость + юмор, а не “доминирование”.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="manifest" class="section">
+      <h2>Манифест Дьявола Бабника</h2>
+      <div class="grid">
+        <div class="tile">
+          <h3>Стиль</h3>
+          <p>Красный вайб, уверенная подача, ирония — но без кринжа и агрессии.</p>
+        </div>
+        <div class="tile">
+          <h3>Уважение</h3>
+          <p>Никаких “манипуляций”. Нормальный разговор и границы — святое.</p>
+        </div>
+        <div class="tile">
+          <h3>Мем-энергия</h3>
+          <p>Это рофл-лендинг: улыбка, кнопки, мини-анкеты и “торжественные” статусы.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="section">
+      <h2>FAQ</h2>
+      <div class="grid">
+        <div class="tile">
+          <h3>Сайт реально кого-то “находит”?</h3>
+          <p>Нет 🙂 Это мем-лендинг. Он показывает “сценарий” и генерирует текст/статусы.</p>
+        </div>
+        <div class="tile">
+          <h3>Можно добавить Telegram/Discord кнопки?</h3>
+          <p>Да. Скажи ссылки — и я вставлю кнопки “Написать” и “Зайти в канал”.</p>
+        </div>
+        <div class="tile">
+          <h3>Можно больше красного?</h3>
+          <p>Можно сделать ещё жёстче: анимированный “неон-красный”, частицы, свечение.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer-row">
+        <div>© <span id="year"></span> Дьявол Бабник. Мем-проект.</div>
+        <div class="small-links">
+          <a href="#manifest">Манифест</a>
+          <a href="#actions">Действия</a>
+          <a href="#faq">FAQ</a>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <!-- Модалка -->
+  <div class="modal-bg" id="modalBg" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modalTitle">Заголовок</h3>
+        <button class="x" id="modalClose" aria-label="Закрыть">✕</button>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">Готово!</div>
+
+  <script>
+    const toast = document.getElementById("toast");
+    function showToast(text){
+      toast.textContent = text || "Готово!";
+      toast.classList.add("show");
+      clearTimeout(showToast._t);
+      showToast._t = setTimeout(()=>toast.classList.remove("show"), 1500);
+    }
+
+    const modalBg = document.getElementById("modalBg");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalBody = document.getElementById("modalBody");
+    const modalClose = document.getElementById("modalClose");
+
+    function openModal(title, html){
+      modalTitle.textContent = title;
+      modalBody.innerHTML = html;
+      modalBg.classList.add("show");
+      modalBg.setAttribute("aria-hidden","false");
+    }
+    function closeModal(){
+      modalBg.classList.remove("show");
+      modalBg.setAttribute("aria-hidden","true");
+    }
+    modalClose.addEventListener("click", closeModal);
+    modalBg.addEventListener("click", (e)=>{ if(e.target === modalBg) closeModal(); });
+    document.addEventListener("keydown", (e)=>{ if(e.key === "Escape") closeModal(); });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Небольшой генератор "фраз"
+    const openers = [
+      "Привет! У тебя настроение тоже красное или это я так влияю? 😄",
+      "Хей! Вопрос важный: чай/кофе и почему именно улыбка? 🙂",
+      "Привет! Я тут по делу: обмен мемами разрешён?",
+      "Хай! Я ищу человека, который понимает вайб. Кажется, это ты."
+    ];
+    const compliments = [
+      "Ты выглядишь так, будто у тебя хорошая энергетика.",
+      "У тебя стильный вайб, не могу не сказать.",
+      "С тобой как-то спокойно — это редкость.",
+      "Кажется, ты умеешь смеяться по-настоящему."
+    ];
+    const safeTips = [
+      "Совет: без давки. Если нет интереса — спокойно отпусти.",
+      "Совет: лучше один нормальный комплимент, чем десять шаблонов.",
+      "Совет: вопросы > монологи. И уважай границы.",
+      "Совет: юмор ок, но не шутить “в минус” человеку."
+    ];
+    const rand = (arr)=>arr[Math.floor(Math.random()*arr.length)];
+
+    // Кнопка 1: познакомиться
+    document.getElementById("btnMeet").addEventListener("click", ()=>{
+      const html = `
+        <div class="row">
+          <div>
+            <label>Твой ник/имя</label>
+            <input id="name" placeholder="Например: Va1elon" />
+          </div>
+          <div>
+            <label>Стиль знакомства</label>
+            <select id="style">
+              <option value="мемно">Мемно</option>
+              <option value="спокойно">Спокойно</option>
+              <option value="уверенно">Уверенно</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="height:10px"></div>
+
+        <label>Короткое сообщение (сгенерируем)</label>
+        <textarea id="msg" placeholder="Нажми “Сгенерировать” ниже"></textarea>
+
+        <div class="modal-actions">
+          <button class="btn" type="button" id="gen">Сгенерировать</button>
+          <button class="btn primary" type="button" id="copy">Скопировать текст</button>
+        </div>
+
+        <p class="warn" style="margin-top:12px">
+          <b>Памятка:</b> если человек не хочет общаться — уважай это. Уверенность = спокойствие.
+        </p>
+      `;
+      openModal("Познакомиться с девушкой", html);
+
+      const genBtn = document.getElementById("gen");
+      const copyBtn = document.getElementById("copy");
+      const msg = document.getElementById("msg");
+
+      genBtn.addEventListener("click", ()=>{
+        const name = (document.getElementById("name").value || "Я").trim();
+        const style = document.getElementById("style").value;
+
+        let prefix = "";
+        if(style === "мемно") prefix = rand(openers);
+        if(style === "спокойно") prefix = "Привет! Можно познакомиться? 🙂";
+        if(style === "уверенно") prefix = "Привет! Ты мне показалась интересной — хотел познакомиться.";
+
+        msg.value = `${prefix}\n\n${rand(compliments)}\n${rand(safeTips)}\n— ${name}`;
+        showToast("Сгенерировано ✨");
+      });
+
+      copyBtn.addEventListener("click", async ()=>{
+        try{
+          await navigator.clipboard.writeText(msg.value || "");
+          showToast("Скопировано ✅");
+        }catch(e){
+          showToast("Не смог скопировать 😅");
+        }
+      });
+    });
+
+    // Кнопка 2: признать себя бабником (мем-сертификат)
+    document.getElementById("btnConfess").addEventListener("click", 
