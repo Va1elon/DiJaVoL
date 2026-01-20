@@ -2,18 +2,19 @@
 <html lang="ru">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Дьявол Бабник — Официальный Мем-Портал</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Дьявол Бабник — мем-портал</title>
   <meta name="description" content="Шуточный сайт в красной теме: познакомиться, признать себя бабником и вступить в ассоциацию." />
 
   <meta property="og:title" content="Дьявол Бабник" />
-  <meta property="og:description" content="Кнопки, анкета и красный вайб. Мем-лендинг." />
+  <meta property="og:description" content="Кнопки судьбы, анкеты и красный вайб." />
   <meta property="og:type" content="website" />
 
   <style>
     :root{
       --bg:#070005;
       --panel: rgba(255,255,255,.06);
+      --panel2: rgba(255,255,255,.08);
       --line: rgba(255,255,255,.12);
       --txt: rgba(255,255,255,.92);
       --muted: rgba(255,255,255,.68);
@@ -23,7 +24,9 @@
       --shadow: 0 20px 70px rgba(0,0,0,.65);
       --radius: 22px;
     }
+
     *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
     html,body{ height:100%; }
     body{
       margin:0;
@@ -36,20 +39,40 @@
         linear-gradient(180deg, #070005 0%, #040008 55%, #020003 100%);
       overflow-x:hidden;
     }
+
     a{ color:inherit; text-decoration:none; }
     .wrap{ max-width:1100px; margin:0 auto; padding:24px; }
 
+    /* ===== NAV (FIX: не перекрывает клики) ===== */
     .nav{
-      position:sticky; top:0; z-index:50;
-      backdrop-filter: blur(12px);
-      background: linear-gradient(180deg, rgba(7,0,5,.75), rgba(7,0,5,.35));
+      position: sticky;
+      top: 0;
+      z-index: 9999;
+      background: rgba(7,0,5,.72);
       border-bottom:1px solid var(--line);
     }
-    .nav-inner{
-      display:flex; align-items:center; justify-content:space-between;
-      max-width:1100px; margin:0 auto; padding:12px 24px; gap:12px;
+    /* blur в отдельном слое, чтобы не ломать клики на мобиле */
+    .nav::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      background: linear-gradient(180deg, rgba(7,0,5,.70), rgba(7,0,5,.35));
+      pointer-events:none; /* ВАЖНО: слой не перехватывает тапы */
     }
-    .brand{ display:flex; align-items:center; gap:12px; }
+    .nav-inner{
+      position:relative;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      max-width:1100px;
+      margin:0 auto;
+      padding:12px 24px;
+    }
+
+    .brand{ display:flex; align-items:center; gap:12px; min-width: 180px; }
     .logo{
       width:40px; height:40px; border-radius:14px;
       background:
@@ -59,6 +82,7 @@
       box-shadow: 0 12px 34px rgba(255,43,58,.18);
       position:relative;
       overflow:hidden;
+      flex: 0 0 auto;
     }
     .logo::after{
       content:"";
@@ -66,11 +90,18 @@
       background: radial-gradient(circle at 40% 40%, rgba(255,255,255,.25), transparent 60%);
       transform: rotate(25deg);
       opacity:.9;
+      pointer-events:none;
     }
-    .brand h1{ font-size:16px; margin:0; letter-spacing:.35px;}
+    .brand h1{ font-size:16px; margin:0; letter-spacing:.35px; }
     .brand p{ margin:0; font-size:12px; color:var(--muted); }
 
-    .links{ display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end; }
+    .links{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
     .chip{
       padding:10px 12px;
       border-radius:999px;
@@ -78,10 +109,12 @@
       background: rgba(255,255,255,.04);
       transition:.18s ease;
       font-size:13px;
-      color: rgba(255,255,255,.82);
+      color: rgba(255,255,255,.86);
+      user-select:none;
     }
     .chip:hover{ transform: translateY(-1px); border-color: rgba(255,255,255,.18); background: rgba(255,255,255,.06); }
 
+    /* ===== CARDS ===== */
     .card{
       background: rgba(255,255,255,.05);
       border:1px solid rgba(255,255,255,.10);
@@ -97,11 +130,13 @@
         radial-gradient(650px 240px at 25% 15%, rgba(255,43,58,.22), transparent 60%),
         radial-gradient(500px 240px at 85% 0%, rgba(255,0,93,.20), transparent 55%);
       opacity:.75;
-      pointer-events:none;
+      pointer-events:none; /* FIX */
     }
     .card > *{ position:relative; }
 
-    .hero{ padding:54px 0 18px; }
+    /* ===== HERO ===== */
+    main{ position:relative; z-index:1; } /* FIX: выше фона */
+    .hero{ padding:54px 0 18px; position:relative; z-index:2; }
     .hero-grid{
       display:grid;
       grid-template-columns: 1.2fr .8fr;
@@ -117,7 +152,7 @@
       border-radius:999px;
       border:1px solid rgba(255,255,255,.14);
       background: rgba(255,255,255,.04);
-      color: rgba(255,255,255,.86);
+      color: rgba(255,255,255,.88);
       font-size:13px;
       width: fit-content;
       margin-bottom:14px;
@@ -146,9 +181,17 @@
       line-height:1.5;
     }
 
-    .actions{ display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
+    .actions{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
     .btn{
-      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
       padding:12px 14px;
       border-radius:14px;
       border:1px solid rgba(255,255,255,.14);
@@ -158,6 +201,9 @@
       font-weight:800;
       font-size:14px;
       cursor:pointer;
+      user-select:none;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation; /* FIX: тап на мобиле */
     }
     .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.22); }
     .btn.primary{
@@ -183,8 +229,16 @@
       background: rgba(255,255,255,.03);
     }
 
+    .warn{
+      margin-top:10px;
+      color: rgba(255,255,255,.68);
+      font-size:12px;
+      line-height:1.45;
+    }
+    .warn b{ color: rgba(255,255,255,.92); }
+
     .hero-side{ padding:20px; }
-    .mini-title{ margin:0 0 10px; font-size:14px; color: rgba(255,255,255,.84); }
+    .mini-title{ margin:0 0 10px; font-size:14px; color: rgba(255,255,255,.86); }
     .stats{
       display:grid;
       grid-template-columns: 1fr 1fr;
@@ -199,6 +253,7 @@
     .stat b{ display:block; font-size:18px; }
     .stat span{ display:block; margin-top:4px; color: var(--muted); font-size:12px; }
 
+    /* ===== SECTIONS ===== */
     .section{ padding:18px 0; }
     .section h2{ margin:18px 0 10px; font-size:20px; letter-spacing:-.2px; }
 
@@ -220,17 +275,33 @@
     .tile h3{ margin:0 0 6px; font-size:16px; }
     .tile p{ margin:0; color: var(--muted); font-size:13px; line-height:1.45; }
 
-    /* Модалка */
+    footer{
+      margin-top:26px;
+      padding:22px 0 30px;
+      color: rgba(255,255,255,.55);
+      font-size:12px;
+      border-top:1px solid rgba(255,255,255,.08);
+    }
+    .footer-row{
+      display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;
+    }
+    .small-links{ display:flex; gap:12px; flex-wrap:wrap; }
+    .small-links a{ color: rgba(255,255,255,.72); }
+    .small-links a:hover{ color: rgba(255,255,255,.92); }
+
+    /* ===== MODAL ===== */
     .modal-bg{
-      position:fixed; inset:0;
+      position:fixed;
+      inset:0;
       background: rgba(0,0,0,.65);
       display:none;
       align-items:center;
       justify-content:center;
       padding:18px;
-      z-index:200;
+      z-index: 20000;
     }
     .modal-bg.show{ display:flex; }
+
     .modal{
       width:min(720px, 100%);
       border-radius: 22px;
@@ -250,6 +321,7 @@
       pointer-events:none;
     }
     .modal > *{ position:relative; }
+
     .modal-header{
       padding:16px 18px;
       display:flex; align-items:center; justify-content:space-between; gap:10px;
@@ -257,7 +329,8 @@
     }
     .modal-title{ margin:0; font-size:15px; letter-spacing:.2px; }
     .x{
-      border:none; background: rgba(255,255,255,.06);
+      border:none;
+      background: rgba(255,255,255,.06);
       border:1px solid rgba(255,255,255,.14);
       color: rgba(255,255,255,.9);
       width:38px; height:38px;
@@ -265,10 +338,13 @@
       cursor:pointer;
       font-weight:900;
       transition:.18s ease;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
     }
     .x:hover{ transform: translateY(-1px); background: rgba(255,255,255,.08); }
 
     .modal-body{ padding:16px 18px 18px; }
+
     .row{ display:grid; grid-template-columns: 1fr 1fr; gap:12px; }
     @media (max-width: 720px){ .row{ grid-template-columns: 1fr; } }
 
@@ -290,8 +366,12 @@
       display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end;
     }
 
+    /* ===== TOAST ===== */
     .toast{
-      position:fixed; left:50%; bottom:18px; transform: translateX(-50%);
+      position:fixed;
+      left:50%;
+      bottom: max(18px, env(safe-area-inset-bottom));
+      transform: translateX(-50%);
       background: rgba(15,0,8,.86);
       border:1px solid rgba(255,255,255,.14);
       color: rgba(255,255,255,.9);
@@ -302,36 +382,71 @@
       pointer-events:none;
       transition:.2s ease;
       backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       box-shadow: 0 18px 50px rgba(0,0,0,.45);
+      z-index: 30000;
     }
     .toast.show{ opacity:1; }
 
-    footer{
-      margin-top:26px;
-      padding:22px 0 30px;
-      color: rgba(255,255,255,.55);
-      font-size:12px;
-      border-top:1px solid rgba(255,255,255,.08);
+    /* ===== UP BUTTON ===== */
+    .up{
+      position: fixed;
+      right: 16px;
+      bottom: max(16px, env(safe-area-inset-bottom));
+      width: 46px;
+      height: 46px;
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: rgba(255,255,255,.9);
+      box-shadow: 0 18px 50px rgba(0,0,0,.35);
+      cursor:pointer;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      font-weight: 900;
+      z-index: 15000;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
     }
-    .footer-row{
-      display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;
-    }
-    .small-links{ display:flex; gap:12px; flex-wrap:wrap; }
-    .small-links a{ color: rgba(255,255,255,.72); }
-    .small-links a:hover{ color: rgba(255,255,255,.92); }
+    .up.show{ display:flex; }
+    .up:hover{ transform: translateY(-1px); }
 
-    .warn{
-      margin-top:10px;
-      color: rgba(255,255,255,.68);
-      font-size:12px;
-      line-height:1.45;
+    /* ===== MOBILE POLISH ===== */
+    @media (max-width: 520px){
+      .wrap{ padding: 16px; }
+
+      .nav-inner{
+        padding: 10px 14px;
+        gap: 10px;
+        align-items:flex-start;
+      }
+      .brand{ min-width: 0; }
+      .brand p{ display:none; }
+
+      .links{ justify-content:flex-end; gap:8px; }
+      .chip{ padding: 9px 10px; font-size: 12px; }
+
+      .hero{ padding: 24px 0 10px; }
+      .hero-main{ padding: 18px; }
+      .hero-side{ padding: 16px; }
+
+      .hero-title{ font-size: 34px; }
+      .hero-sub{ font-size: 14px; }
+
+      .actions{
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .btn{ width: 100%; }
+
+      .stats{ grid-template-columns: 1fr 1fr; }
     }
-    .warn b{ color: rgba(255,255,255,.9); }
   </style>
 </head>
 
 <body>
-  <div class="nav">
+  <header class="nav">
     <div class="nav-inner">
       <div class="brand">
         <div class="logo" aria-hidden="true"></div>
@@ -341,16 +456,16 @@
         </div>
       </div>
 
-      <div class="links">
+      <nav class="links" aria-label="Навигация">
         <a class="chip" href="#manifest">Манифест</a>
         <a class="chip" href="#actions">Действия</a>
         <a class="chip" href="#faq">FAQ</a>
-      </div>
+      </nav>
     </div>
-  </div>
+  </header>
 
   <main class="wrap">
-    <section class="hero">
+    <section class="hero" id="top">
       <div class="hero-grid">
         <div class="card hero-main">
           <div class="badge"><span class="pulse"></span> Добро пожаловать в красную зону харизмы</div>
@@ -374,26 +489,17 @@
           </div>
 
           <p class="warn">
-            <b>Важно:</b> сайт — мем. Никакого преследования, унижения или “охоты”.
-            Только уважение и норм общение.
+            <b>Важно:</b> сайт — мем. Никакого преследования/унижения. Только уважение и норм общение.
           </p>
         </div>
 
         <div class="card hero-side">
           <h3 class="mini-title">Статистика ассоциации</h3>
           <div class="stats">
-            <div class="stat">
-              <b id="s1">∞</b><span>уверенности</span>
-            </div>
-            <div class="stat">
-              <b id="s2">0%</b><span>токсичности</span>
-            </div>
-            <div class="stat">
-              <b id="s3">100%</b><span>красного вайба</span>
-            </div>
-            <div class="stat">
-              <b id="s4">ON</b><span>уважение</span>
-            </div>
+            <div class="stat"><b>∞</b><span>уверенности</span></div>
+            <div class="stat"><b>0%</b><span>токсичности</span></div>
+            <div class="stat"><b>100%</b><span>красного вайба</span></div>
+            <div class="stat"><b>ON</b><span>уважение</span></div>
           </div>
 
           <div style="height:12px"></div>
@@ -401,8 +507,7 @@
           <div class="tile" style="padding:16px">
             <h3 style="margin:0 0 6px">Правило №1</h3>
             <p style="margin:0;color:var(--muted);font-size:13px;line-height:1.5">
-              Если общаешься — общайся нормально. Никакого давления.
-              Харизма — это вежливость + юмор, а не “доминирование”.
+              Если общаешься — общайся нормально. Харизма = вежливость + юмор, а не давление.
             </p>
           </div>
         </div>
@@ -414,7 +519,7 @@
       <div class="grid">
         <div class="tile">
           <h3>Стиль</h3>
-          <p>Красный вайб, уверенная подача, ирония — но без кринжа и агрессии.</p>
+          <p>Красный вайб, уверенная подача, ирония — но без агрессии.</p>
         </div>
         <div class="tile">
           <h3>Уважение</h3>
@@ -422,7 +527,7 @@
         </div>
         <div class="tile">
           <h3>Мем-энергия</h3>
-          <p>Это рофл-лендинг: улыбка, кнопки, мини-анкеты и “торжественные” статусы.</p>
+          <p>Это рофл-лендинг: кнопки, анкеты, статусы и “торжественные” клятвы.</p>
         </div>
       </div>
     </section>
@@ -432,15 +537,15 @@
       <div class="grid">
         <div class="tile">
           <h3>Сайт реально кого-то “находит”?</h3>
-          <p>Нет 🙂 Это мем-лендинг. Он показывает “сценарий” и генерирует текст/статусы.</p>
+          <p>Нет 🙂 Это мем. Он генерирует фразы и статусы для настроения.</p>
         </div>
         <div class="tile">
-          <h3>Можно добавить Telegram/Discord кнопки?</h3>
-          <p>Да. Скажи ссылки — и я вставлю кнопки “Написать” и “Зайти в канал”.</p>
+          <h3>Можно добавить Telegram/Discord?</h3>
+          <p>Да. Скажи ссылки — вставлю кнопки “Написать”/“Вступить”.</p>
         </div>
         <div class="tile">
-          <h3>Можно больше красного?</h3>
-          <p>Можно сделать ещё жёстче: анимированный “неон-красный”, частицы, свечение.</p>
+          <h3>Хочу ещё краснее</h3>
+          <p>Можно сделать неон, частицы, “огонь” на фоне и анимации по жирнее.</p>
         </div>
       </div>
     </section>
@@ -457,7 +562,10 @@
     </footer>
   </main>
 
-  <!-- Модалка -->
+  <!-- Up button -->
+  <button class="up" id="upBtn" type="button" aria-label="Наверх">↑</button>
+
+  <!-- Modal -->
   <div class="modal-bg" id="modalBg" aria-hidden="true">
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
       <div class="modal-header">
@@ -471,6 +579,7 @@
   <div class="toast" id="toast">Готово!</div>
 
   <script>
+    // ===== helpers =====
     const toast = document.getElementById("toast");
     function showToast(text){
       toast.textContent = text || "Готово!";
@@ -479,6 +588,7 @@
       showToast._t = setTimeout(()=>toast.classList.remove("show"), 1500);
     }
 
+    // ===== modal =====
     const modalBg = document.getElementById("modalBg");
     const modalTitle = document.getElementById("modalTitle");
     const modalBody = document.getElementById("modalBody");
@@ -489,10 +599,12 @@
       modalBody.innerHTML = html;
       modalBg.classList.add("show");
       modalBg.setAttribute("aria-hidden","false");
+      document.body.style.overflow = "hidden"; // чтобы фон не скроллился
     }
     function closeModal(){
       modalBg.classList.remove("show");
       modalBg.setAttribute("aria-hidden","true");
+      document.body.style.overflow = ""; // вернуть
     }
     modalClose.addEventListener("click", closeModal);
     modalBg.addEventListener("click", (e)=>{ if(e.target === modalBg) closeModal(); });
@@ -500,87 +612,17 @@
 
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    // Небольшой генератор "фраз"
-    const openers = [
-      "Привет! У тебя настроение тоже красное или это я так влияю? 😄",
-      "Хей! Вопрос важный: чай/кофе и почему именно улыбка? 🙂",
-      "Привет! Я тут по делу: обмен мемами разрешён?",
-      "Хай! Я ищу человека, который понимает вайб. Кажется, это ты."
-    ];
-    const compliments = [
-      "Ты выглядишь так, будто у тебя хорошая энергетика.",
-      "У тебя стильный вайб, не могу не сказать.",
-      "С тобой как-то спокойно — это редкость.",
-      "Кажется, ты умеешь смеяться по-настоящему."
-    ];
-    const safeTips = [
-      "Совет: без давки. Если нет интереса — спокойно отпусти.",
-      "Совет: лучше один нормальный комплимент, чем десять шаблонов.",
-      "Совет: вопросы > монологи. И уважай границы.",
-      "Совет: юмор ок, но не шутить “в минус” человеку."
-    ];
-    const rand = (arr)=>arr[Math.floor(Math.random()*arr.length)];
-
-    // Кнопка 1: познакомиться
-    document.getElementById("btnMeet").addEventListener("click", ()=>{
-      const html = `
-        <div class="row">
-          <div>
-            <label>Твой ник/имя</label>
-            <input id="name" placeholder="Например: Va1elon" />
-          </div>
-          <div>
-            <label>Стиль знакомства</label>
-            <select id="style">
-              <option value="мемно">Мемно</option>
-              <option value="спокойно">Спокойно</option>
-              <option value="уверенно">Уверенно</option>
-            </select>
-          </div>
-        </div>
-
-        <div style="height:10px"></div>
-
-        <label>Короткое сообщение (сгенерируем)</label>
-        <textarea id="msg" placeholder="Нажми “Сгенерировать” ниже"></textarea>
-
-        <div class="modal-actions">
-          <button class="btn" type="button" id="gen">Сгенерировать</button>
-          <button class="btn primary" type="button" id="copy">Скопировать текст</button>
-        </div>
-
-        <p class="warn" style="margin-top:12px">
-          <b>Памятка:</b> если человек не хочет общаться — уважай это. Уверенность = спокойствие.
-        </p>
-      `;
-      openModal("Познакомиться с девушкой", html);
-
-      const genBtn = document.getElementById("gen");
-      const copyBtn = document.getElementById("copy");
-      const msg = document.getElementById("msg");
-
-      genBtn.addEventListener("click", ()=>{
-        const name = (document.getElementById("name").value || "Я").trim();
-        const style = document.getElementById("style").value;
-
-        let prefix = "";
-        if(style === "мемно") prefix = rand(openers);
-        if(style === "спокойно") prefix = "Привет! Можно познакомиться? 🙂";
-        if(style === "уверенно") prefix = "Привет! Ты мне показалась интересной — хотел познакомиться.";
-
-        msg.value = `${prefix}\n\n${rand(compliments)}\n${rand(safeTips)}\n— ${name}`;
-        showToast("Сгенерировано ✨");
-      });
-
-      copyBtn.addEventListener("click", async ()=>{
-        try{
-          await navigator.clipboard.writeText(msg.value || "");
-          showToast("Скопировано ✅");
-        }catch(e){
-          showToast("Не смог скопировать 😅");
-        }
-      });
+    // ===== up button =====
+    const upBtn = document.getElementById("upBtn");
+    window.addEventListener("scroll", ()=>{
+      if(window.scrollY > 450) upBtn.classList.add("show");
+      else upBtn.classList.remove("show");
+    }, { passive:true });
+    upBtn.addEventListener("click", ()=>{
+      window.scrollTo({ top: 0, behavior: "smooth" });
     });
 
-    // Кнопка 2: признать себя бабником (мем-сертификат)
-    document.getElementById("btnConfess").addEventListener("click", 
+    // ===== генераторы текста =====
+    const openers = [
+      "Привет! У тебя настроение тоже красное или это я так влияю? 😄",
+      "Хей! Вопрос важный: чай/кофе и почему именно улыбк
